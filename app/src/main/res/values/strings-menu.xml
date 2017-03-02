@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="timer">Move Timer</string>
+    <string name="settings">Settings</string>
+
+    <string-array name="drawer_options">
+        <item>New Game</item>
+        <item>Load Game</item>
+        <item>Save Game</item>
+    </string-array>
+</resources>

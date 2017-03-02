@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.tetrinity.scoretracker.ScoreActivity">
+
+    <item
+        android:id="@+id/action_timer"
+        android:icon="@drawable/ic_hourglass_black"
+        android:title="@string/timer"
+        app:showAsAction="ifRoom"
+    />
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/settings"
+        app:showAsAction="never"
+    />
+</menu>
