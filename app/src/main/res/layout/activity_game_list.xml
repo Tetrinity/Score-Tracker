@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.tetrinity.scoretracker.ScoreActivity"
-    >
+    tools:context="com.tetrinity.scoretracker.GameListActivity"
+>
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -15,11 +15,16 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     />
 
-    <include layout="@layout/content_score" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_input_add"
+    />
 
 </android.support.design.widget.CoordinatorLayout>
 

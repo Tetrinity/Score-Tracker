@@ -1,7 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.tetrinity.scoretracker.ScoreActivity">
+    tools:context="com.tetrinity.scoretracker.GameListActivity"
+>
 
     <item
         android:id="@+id/action_timer"
