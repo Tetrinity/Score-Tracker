@@ -18,6 +18,9 @@ public class Game implements Serializable {
 
         moves.put(playerName, new ArrayList<Move>());
     }
+    public void removePlayer(String playerName){
+        moves.remove(playerName);
+    }
 
 
     public List getPlayers(){
