@@ -1,10 +1,15 @@
 package com.tetrinity.scoretracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+
+import com.tetrinity.scoretracker.game.Game;
+import com.tetrinity.scoretracker.game.GameActivity;
 
 public class GameListActivity extends AppCompatActivity {
 
@@ -38,5 +43,22 @@ public class GameListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    public static final String GAME_KEY = "com.tetrinity.GAME_KEY";
+    public void addGame(View view){
+        Game game = new Game();
+
+        // send game to score view
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra(GAME_KEY, game);
+
+        startActivity(intent);
+    }
+
+    public void editGame(View view){
+        // get game and send to score view
+//        throw new NotImplementedException();
     }
 }
