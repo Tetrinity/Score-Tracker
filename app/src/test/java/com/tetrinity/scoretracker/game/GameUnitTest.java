@@ -1,10 +1,9 @@
 package com.tetrinity.scoretracker.game;
 
 import org.junit.Test;
+import org.junit.Assert;
 
-/**
- * Created by Tetrinity on 02-Mar-17.
- */
+import java.util.List;
 
 public class GameUnitTest {
 
@@ -13,7 +12,11 @@ public class GameUnitTest {
         Game game = new Game();
 
         game.addPlayer("Test Player");
+        game.addPlayer("Second Player");
 
-        assert true;
+        List gamePlayers = game.getPlayers();
+
+        Assert.assertEquals("Expected first player to be \"Test Player\"", "Test Player", gamePlayers.get(0));
+        Assert.assertEquals("Expected second player to be \"Second Player\"", "Second Player", gamePlayers.get(1));
     }
 }
