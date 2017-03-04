@@ -50,6 +50,11 @@ public class GameListActivity extends AppCompatActivity {
     public void addGame(View view){
         Game game = new Game();
 
+        // DEBUG
+        game.addPlayer("Test Player");
+        game.addPlayer("Other Player");
+        game.addPlayer("Third Player");
+
         // send game to score view
         Intent intent = new Intent(this, GameActivity.class);
         intent.putExtra(GAME_KEY, game);

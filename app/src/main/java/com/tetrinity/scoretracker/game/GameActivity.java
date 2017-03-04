@@ -6,9 +6,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TableRow;
+import android.widget.TextView;
 
 import com.tetrinity.scoretracker.GameListActivity;
 import com.tetrinity.scoretracker.R;
@@ -25,6 +28,8 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Game game = (Game)intent.getSerializableExtra(GameListActivity.GAME_KEY);
 
+        initGame(game);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,6 +38,22 @@ public class GameActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    private void initGame(Game game){
+        TableRow header = (TableRow)findViewById(R.id.score_table_header);
+
+        for (String player : game.getPlayers()){
+            TextView textView = new TextView(this);
+            textView.setLayoutParams(new TableRow.LayoutParams(
+                    TableRow.LayoutParams.WRAP_CONTENT,
+                    TableRow.LayoutParams.WRAP_CONTENT
+            ));
+            textView.setGravity(Gravity.CENTER);
+
+            textView.append(player);
+            header.addView(textView);
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {

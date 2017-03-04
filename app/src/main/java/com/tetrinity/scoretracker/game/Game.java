@@ -23,7 +23,7 @@ public class Game implements Serializable {
     }
 
 
-    public List getPlayers(){
+    public List<String> getPlayers(){
         return new ArrayList<String>(moves.keySet());
     }
 
