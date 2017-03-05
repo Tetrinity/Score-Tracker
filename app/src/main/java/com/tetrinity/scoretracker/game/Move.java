@@ -5,6 +5,15 @@ package com.tetrinity.scoretracker.game;
  */
 
 public class Move {
-    Integer score;
-    String word;
+    public int score;
+    public String word;
+
+    public Move(Integer score){
+        this(score, null);
+    }
+
+    public Move(Integer score, String word){
+        this.score = score;
+        this.word = word;
+    }
 }

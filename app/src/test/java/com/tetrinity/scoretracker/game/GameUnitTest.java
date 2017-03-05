@@ -35,4 +35,22 @@ public class GameUnitTest {
         Assert.assertEquals("Expected one player remaining", 1, gamePlayers.size());
         Assert.assertEquals("Expected player to be \"Second Player\"", "Second Player", gamePlayers.get(0));
     }
+
+    @Test
+    public void test_addMove(){
+        Game game = new Game();
+        String playerName = "Test Player";
+
+        game.addPlayer(playerName);
+        game.addMove(playerName, new Move(18));
+        game.addMove(playerName, new Move(14, "Java"));
+
+        List<Move> moves = game.getPlayerMoves(playerName);
+
+        Assert.assertEquals("Expected to have two moves", 2, moves.size());
+        Assert.assertEquals("Expected first move to have a score of 18", 18, moves.get(0).score);
+        Assert.assertEquals("Expected first move to have no associated word", null, moves.get(0).word);
+        Assert.assertEquals("Expected second move to have a score of 14", 14, moves.get(1).score);
+        Assert.assertEquals("Expected second move to have the word \"Java\"", "Java", moves.get(1).word);
+    }
 }
