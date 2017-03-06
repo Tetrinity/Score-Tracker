@@ -10,8 +10,8 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TableRow;
-import android.widget.TextView;
 
 import com.tetrinity.scoretracker.GameListActivity;
 import com.tetrinity.scoretracker.R;
@@ -47,15 +47,15 @@ public class GameActivity extends AppCompatActivity {
         TableRow header = (TableRow)findViewById(R.id.score_table_header);
 
         for (String player : game.getPlayers()){
-            TextView textView = new TextView(this);
-            textView.setLayoutParams(new TableRow.LayoutParams(
+            EditText editText = new EditText(this);
+            editText.setLayoutParams(new TableRow.LayoutParams(
                     TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT
             ));
-            textView.setGravity(Gravity.CENTER);
+            editText.setGravity(Gravity.CENTER);
 
-            textView.append(player);
-            header.addView(textView);
+            editText.append(player);
+            header.addView(editText);
         }
     }
 
