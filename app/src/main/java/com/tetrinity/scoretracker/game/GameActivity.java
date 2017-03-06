@@ -26,7 +26,10 @@ public class GameActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        Game game = (Game)intent.getSerializableExtra(GameListActivity.GAME_KEY);
+        Integer gameId = intent.getIntExtra(GameListActivity.GAME_ID, -1);
+
+        Game game = Game.load(this, gameId);
+        if (game == null){ game = new Game(this); }
 
         initGame(game);
 

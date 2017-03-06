@@ -45,25 +45,19 @@ public class GameListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    public static final String GAME_KEY = "com.tetrinity.GAME_KEY";
     public void addGame(View view){
-        Game game = new Game();
-
-        // DEBUG
-        game.addPlayer("Test Player");
-        game.addPlayer("Other Player");
-        game.addPlayer("Third Player");
-
-        // send game to score view
         Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra(GAME_KEY, game);
-
         startActivity(intent);
     }
 
+    public static final String GAME_ID = "com.tetrinity.GAME_ID";
     public void editGame(View view){
-        // get game and send to score view
-//        throw new NotImplementedException();
+        // TODO: get clicked game ID from screen
+        Integer gameId = 0;
+
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra(GAME_ID, gameId);
+
+        startActivity(intent);
     }
 }
