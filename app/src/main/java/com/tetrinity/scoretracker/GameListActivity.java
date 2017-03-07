@@ -28,6 +28,11 @@ public class GameListActivity extends AppCompatActivity {
         // set up app main toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
 
         loadGameList();
     }
@@ -69,6 +74,7 @@ public class GameListActivity extends AppCompatActivity {
 
     private void loadGameList(){
         LinearLayout list = (LinearLayout)findViewById(R.id.game_list);
+        list.removeAllViews();
 
         TextView textViewHead = new TextView(this);
         textViewHead.setLayoutParams(new ListView.LayoutParams(
