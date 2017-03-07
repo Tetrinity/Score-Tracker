@@ -87,6 +87,7 @@ public class GameListActivity extends AppCompatActivity {
                     ListView.LayoutParams.WRAP_CONTENT,
                     ListView.LayoutParams.WRAP_CONTENT
             ));
+            textView.setTextSize(24);
             textView.setText(file.getName());
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
