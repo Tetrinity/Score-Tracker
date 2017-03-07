@@ -10,6 +10,15 @@
 >
     <include layout="@layout/toolbar"/>
 
+    <LinearLayout
+        android:id="@+id/game_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:orientation="vertical"
+    >
+    </LinearLayout>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"

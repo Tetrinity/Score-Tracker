@@ -72,7 +72,7 @@ public class Game implements Serializable {
         Integer highestId = 0;
         for (String filename : filenames){
             try {
-                Integer id = Integer.parseInt(filename.substring(4, filename.indexOf(".")));
+                Integer id = getIdFromFilename(filename);
                 if (id > highestId) {
                     highestId = id;
                 }
@@ -118,6 +118,9 @@ public class Game implements Serializable {
     private static File getSaveFile(Context context, Integer id){
         File saveDirectory = context.getFilesDir();
         return new File(saveDirectory, "game" + id + ".gme");
+    }
+    public static Integer getIdFromFilename(String filename){
+        return Integer.parseInt(filename.substring(4, filename.indexOf(".")));
     }
 
 }
