@@ -12,12 +12,14 @@ public class GameUnitTest {
         Game game = new Game();
 
         game.addPlayer("Test Player");
-        game.addPlayer("Second Player");
+        game.addPlayer("Other Player");
 
         List gamePlayers = game.getPlayers();
 
-        Assert.assertEquals("Expected first player to be \"Test Player\"", "Test Player", gamePlayers.get(0));
-        Assert.assertEquals("Expected second player to be \"Second Player\"", "Second Player", gamePlayers.get(1));
+        Assert.assertEquals("Expected first player to be \"Player 1\"", "Player 1", gamePlayers.get(0));
+        Assert.assertEquals("Expected second player to be \"Player 2\"", "Player 2", gamePlayers.get(1));
+        Assert.assertEquals("Expected third player to be \"Test Player\"", "Test Player", gamePlayers.get(2));
+        Assert.assertEquals("Expected fourth player to be \"Other Player\"", "Other Player", gamePlayers.get(3));
     }
 
     @Test
@@ -25,15 +27,17 @@ public class GameUnitTest {
         Game game = new Game();
 
         game.addPlayer("Test Player");
-        game.addPlayer("Second Player");
+        game.addPlayer("Other Player");
 
         game.removePlayer("Test Player");
         game.removePlayer("Not Included");
 
         List gamePlayers = game.getPlayers();
 
-        Assert.assertEquals("Expected one player remaining", 1, gamePlayers.size());
-        Assert.assertEquals("Expected player to be \"Second Player\"", "Second Player", gamePlayers.get(0));
+        Assert.assertEquals("Expected three players remaining", 3, gamePlayers.size());
+        Assert.assertEquals("Expected first player to be \"Player 1\"", "Player 1", gamePlayers.get(0));
+        Assert.assertEquals("Expected second player to be \"Player 2\"", "Player 2", gamePlayers.get(1));
+        Assert.assertEquals("Expected third player to be \"Other Player\"", "Other Player", gamePlayers.get(2));
     }
 
     @Test
