@@ -58,7 +58,7 @@ public class Game implements Serializable {
         File saveFile = getSaveFile(context, gameId);
 
         try {
-            FileOutputStream fout = new FileOutputStream(saveFile, true);
+            FileOutputStream fout = new FileOutputStream(saveFile, false);
             ObjectOutputStream oos = new ObjectOutputStream(fout);
             oos.writeObject(this);
         } catch (IOException e) {
