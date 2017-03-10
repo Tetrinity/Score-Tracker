@@ -1,10 +1,8 @@
 package com.tetrinity.scoretracker.game;
 
-/**
- * Created by Tetrinity on 02-Mar-17.
- */
+import java.io.Serializable;
 
-public class Move {
+public class Move implements Serializable {
     public int score;
     public String word;
 

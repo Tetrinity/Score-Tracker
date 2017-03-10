@@ -1,38 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.tetrinity.scoretracker.game.GameActivity">
+>
+    <data>
+        <variable name="game" type="com.tetrinity.scoretracker.game.Game"/>
+    </data>
 
-    <include layout="@layout/toolbar"/>
-
-    <TableLayout
-        android:id="@+id/score_table"
+    <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:stretchColumns="*"
+        android:fitsSystemWindows="true"
+        tools:context="com.tetrinity.scoretracker.game.GameActivity"
     >
-        <TableRow android:id="@+id/score_table_header">
 
-        </TableRow>
-        <TableRow android:id="@+id/score_table_body">
+        <include layout="@layout/toolbar"/>
 
-        </TableRow>
+        <TableLayout
+            android:id="@+id/score_table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:stretchColumns="*"
+        >
+            <TableRow android:layout_height="120dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Game Name"
+                >
 
-    </TableLayout>
+                </TextView>
+                <EditText
+                    android:id="@+id/game_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@{game.gameName}"
+                />
+            </TableRow>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@id/score_table"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_input_add"
-    />
+            <TableRow android:id="@+id/score_table_header">
 
-</android.support.design.widget.CoordinatorLayout>
+            </TableRow>
+            <TableRow android:id="@+id/score_table_body">
+
+            </TableRow>
+
+        </TableLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/fab_margin"
+            app:layout_anchor="@id/score_table"
+            app:layout_anchorGravity="bottom|end"
+            app:srcCompat="@android:drawable/ic_input_add"
+            />
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>

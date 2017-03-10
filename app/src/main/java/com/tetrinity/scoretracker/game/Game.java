@@ -1,6 +1,10 @@
 package com.tetrinity.scoretracker.game;
 
 import android.content.Context;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
+import com.tetrinity.scoretracker.BR;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,9 +18,12 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-public class Game implements Serializable {
+public class Game extends BaseObservable implements Serializable {
 
     private Integer gameId = -1;
+
+    private String gameName;
+
     private LinkedHashMap<String, List<Move>> moves = new LinkedHashMap<>();
 
     private boolean isWordMode = false;
@@ -33,6 +40,18 @@ public class Game implements Serializable {
     private void initData(){
         addPlayer("Player 1");
         addPlayer("Player 2");
+
+        addMove("Player 1", new Move(14));
+        addMove("Player 2", new Move(17, "testing"));
+    }
+
+    @Bindable
+    public String getGameName(){
+        return this.gameName;
+    }
+    public void setGameName(String gameName){
+        this.gameName = gameName;
+        notifyPropertyChanged(BR.gameName);
     }
 
     public static Game load(Context context, int gameId){
@@ -45,6 +64,7 @@ public class Game implements Serializable {
             FileInputStream fis = new FileInputStream(saveFile);
             ObjectInputStream ois = new ObjectInputStream(fis);
             game = (Game)ois.readObject();
+            ois.close();
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -61,6 +81,7 @@ public class Game implements Serializable {
             FileOutputStream fout = new FileOutputStream(saveFile, false);
             ObjectOutputStream oos = new ObjectOutputStream(fout);
             oos.writeObject(this);
+            oos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

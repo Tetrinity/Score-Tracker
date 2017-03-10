@@ -1,9 +1,9 @@
 package com.tetrinity.scoretracker.game;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -15,20 +15,26 @@ import android.widget.TableRow;
 
 import com.tetrinity.scoretracker.GameListActivity;
 import com.tetrinity.scoretracker.R;
+import com.tetrinity.scoretracker.databinding.ActivityGameBinding;
 
 public class GameActivity extends AppCompatActivity {
+
+    ActivityGameBinding binding;
+
+    private Game game = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_game);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
         Integer gameId = intent.getIntExtra(GameListActivity.GAME_ID, -1);
 
-        Game game = Game.load(this, gameId);
+        game = Game.load(this, gameId);
         if (game == null){ game = new Game(this); }
 
         initGame(game);
@@ -37,13 +43,21 @@ public class GameActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                game.setGameName("Test Game Name");
             }
         });
     }
 
+    @Override
+    protected void onStop(){
+        super.onStop();
+
+        game.save(this);
+    }
+
     private void initGame(Game game){
+        binding.setGame(game);
+
         TableRow header = (TableRow)findViewById(R.id.score_table_header);
 
         for (String player : game.getPlayers()){
