@@ -1,8 +1,10 @@
-package com.tetrinity.scoretracker;
+package com.tetrinity.scoretracker.gamelist;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,14 +13,18 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.tetrinity.scoretracker.R;
 import com.tetrinity.scoretracker.game.Game;
 import com.tetrinity.scoretracker.game.GameActivity;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class GameListActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +34,11 @@ public class GameListActivity extends AppCompatActivity {
         // set up app main toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        recyclerView = (RecyclerView)findViewById(R.id.game_list);
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -73,35 +84,17 @@ public class GameListActivity extends AppCompatActivity {
     }
 
     private void loadGameList(){
-        LinearLayout list = (LinearLayout)findViewById(R.id.game_list);
-        list.removeAllViews();
-
-        TextView textViewHead = new TextView(this);
-        textViewHead.setLayoutParams(new ListView.LayoutParams(
-                ListView.LayoutParams.WRAP_CONTENT,
-                ListView.LayoutParams.WRAP_CONTENT
-        ));
-        textViewHead.setText("Game List");
-        list.addView(textViewHead);
-
         File saveDirectory = getFilesDir();
         List<File> files = Arrays.asList(saveDirectory.listFiles());
 
+        ArrayList<Game> gameList = new ArrayList<>();
         for (final File file : files){
-            TextView textView = new TextView(this);
-            textView.setLayoutParams(new ListView.LayoutParams(
-                    ListView.LayoutParams.WRAP_CONTENT,
-                    ListView.LayoutParams.WRAP_CONTENT
-            ));
-            textView.setTextSize(24);
-            textView.setText(file.getName());
-            textView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    editGame(Game.getIdFromFilename(file.getName()));
-                }
-            });
-            list.addView(textView);
+            Game game = Game.load(file);
+            if (game != null){
+                gameList.add(game);
+            }
         }
+
+        recyclerView.setAdapter(new GameListAdapter(this, gameList));
     }
 }

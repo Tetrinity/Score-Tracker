@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TableRow;
 
-import com.tetrinity.scoretracker.GameListActivity;
+import com.tetrinity.scoretracker.gamelist.GameListActivity;
 import com.tetrinity.scoretracker.R;
 import com.tetrinity.scoretracker.databinding.ActivityGameBinding;
 

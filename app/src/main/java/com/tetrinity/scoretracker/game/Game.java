@@ -22,7 +22,7 @@ public class Game extends BaseObservable implements Serializable {
 
     private Integer gameId = -1;
 
-    private String gameName;
+    private String gameName = "Untitled";
 
     private LinkedHashMap<String, List<Move>> moves = new LinkedHashMap<>();
 
@@ -54,10 +54,16 @@ public class Game extends BaseObservable implements Serializable {
         notifyPropertyChanged(BR.gameName);
     }
 
+    @Bindable
+    public Integer getGameId(){ return this.gameId; }
+
     public static Game load(Context context, int gameId){
         File saveFile = getSaveFile(context, gameId);
         if (!saveFile.exists()){ return null; }
 
+        return load(saveFile);
+    }
+    public static Game load(File saveFile){
         Game game = null;
 
         try {
