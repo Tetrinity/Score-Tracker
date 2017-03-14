@@ -15,6 +15,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class Game extends BaseObservable implements Serializable {
     private Integer gameId = -1;
 
     private String gameName = "Untitled";
+    private Date gameDate = new Date();
 
     private LinkedHashMap<String, List<Move>> moves = new LinkedHashMap<>();
 
@@ -53,6 +55,9 @@ public class Game extends BaseObservable implements Serializable {
         this.gameName = gameName;
         notifyPropertyChanged(BR.gameName);
     }
+
+    @Bindable
+    public Date getGameDate(){ return this.gameDate; }
 
     @Bindable
     public Integer getGameId(){ return this.gameId; }
