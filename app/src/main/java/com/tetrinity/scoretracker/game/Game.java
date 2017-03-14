@@ -30,6 +30,8 @@ public class Game extends BaseObservable implements Serializable {
 
     private boolean isWordMode = false;
 
+    // constructors
+
     public Game(){
         initData();
     }
@@ -39,6 +41,8 @@ public class Game extends BaseObservable implements Serializable {
         save(context);
     }
 
+    // data loading
+
     private void initData(){
         addPlayer("Player 1");
         addPlayer("Player 2");
@@ -46,21 +50,6 @@ public class Game extends BaseObservable implements Serializable {
         addMove("Player 1", new Move(14));
         addMove("Player 2", new Move(17, "testing"));
     }
-
-    @Bindable
-    public String getGameName(){
-        return this.gameName;
-    }
-    public void setGameName(String gameName){
-        this.gameName = gameName;
-        notifyPropertyChanged(BR.gameName);
-    }
-
-    @Bindable
-    public Date getGameDate(){ return this.gameDate; }
-
-    @Bindable
-    public Integer getGameId(){ return this.gameId; }
 
     public static Game load(Context context, int gameId){
         File saveFile = getSaveFile(context, gameId);
@@ -116,6 +105,17 @@ public class Game extends BaseObservable implements Serializable {
         return highestId + 1;
     }
 
+    private static File getSaveFile(Context context, Integer id){
+        File saveDirectory = context.getFilesDir();
+        return new File(saveDirectory, "game" + id + ".gme");
+    }
+
+    public static Integer getIdFromFilename(String filename){
+        return Integer.parseInt(filename.substring(4, filename.indexOf(".")));
+    }
+
+    // data manipulation
+
     public void addPlayer(String playerName){
         if (moves.keySet().contains(playerName)){ return; }
 
@@ -138,21 +138,29 @@ public class Game extends BaseObservable implements Serializable {
         return moves.get(playerName);
     }
 
+    // bindable getters / setters
+
+    @Bindable
+    public String getGameName(){
+        return this.gameName;
+    }
+    public void setGameName(String gameName){
+        this.gameName = gameName;
+        notifyPropertyChanged(BR.gameName);
+    }
+
+    @Bindable
+    public Date getGameDate(){ return this.gameDate; }
+
+    @Bindable
+    public Integer getGameId(){ return this.gameId; }
+
+    @Bindable
     public boolean isWordMode(){
         return isWordMode;
     }
-
     public void setWordMode(boolean wordMode){
         isWordMode = wordMode;
+        notifyPropertyChanged(BR.wordMode);
     }
-
-
-    private static File getSaveFile(Context context, Integer id){
-        File saveDirectory = context.getFilesDir();
-        return new File(saveDirectory, "game" + id + ".gme");
-    }
-    public static Integer getIdFromFilename(String filename){
-        return Integer.parseInt(filename.substring(4, filename.indexOf(".")));
-    }
-
 }
