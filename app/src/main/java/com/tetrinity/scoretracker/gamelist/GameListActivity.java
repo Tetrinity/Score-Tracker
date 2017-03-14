@@ -9,9 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.tetrinity.scoretracker.R;
 import com.tetrinity.scoretracker.game.Game;
@@ -72,14 +69,6 @@ public class GameListActivity extends AppCompatActivity {
 
     public void addGame(View view){
         Intent intent = new Intent(this, GameActivity.class);
-        startActivity(intent);
-    }
-
-    public static final String GAME_ID = "com.tetrinity.GAME_ID";
-    public void editGame(Integer gameId){
-        Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra(GAME_ID, gameId);
-
         startActivity(intent);
     }
 
