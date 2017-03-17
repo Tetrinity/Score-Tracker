@@ -15,6 +15,7 @@ import android.widget.TableRow;
 
 import com.tetrinity.scoretracker.R;
 import com.tetrinity.scoretracker.databinding.ActivityGameBinding;
+import com.tetrinity.scoretracker.gamelist.GameListActivity;
 import com.tetrinity.scoretracker.gamelist.GameListAdapter;
 
 public class GameActivity extends AppCompatActivity {
@@ -32,7 +33,7 @@ public class GameActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-        Integer gameId = intent.getIntExtra(GameListAdapter.GAME_ID, -1);
+        Integer gameId = intent.getIntExtra(GameListActivity.GAME_ID, -1);
 
         game = Game.load(this, gameId);
         if (game == null){ game = new Game(this); }
@@ -56,7 +57,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     private void initGame(Game game){
-        binding.setGame(game);
+        binding.setDataSource(game);
 
         TableRow header = (TableRow)findViewById(R.id.score_table_header);
 

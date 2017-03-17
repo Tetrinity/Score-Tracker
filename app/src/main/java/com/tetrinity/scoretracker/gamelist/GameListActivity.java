@@ -1,5 +1,6 @@
 package com.tetrinity.scoretracker.gamelist;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -72,18 +73,32 @@ public class GameListActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public static final String GAME_ID = "com.tetrinity.GAME_ID";
     private void loadGameList(){
+        final Context context = this;
+
         File saveDirectory = getFilesDir();
         List<File> files = Arrays.asList(saveDirectory.listFiles());
 
         ArrayList<Game> gameList = new ArrayList<>();
+        ArrayList<View.OnClickListener> clickListeners = new ArrayList<>();
         for (final File file : files){
-            Game game = Game.load(file);
+            final Game game = Game.load(file);
             if (game != null){
                 gameList.add(game);
+
+                clickListeners.add(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, GameActivity.class);
+                        intent.putExtra(GAME_ID, game.getGameId());
+
+                        context.startActivity(intent);
+                    }
+                });
             }
         }
 
-        recyclerView.setAdapter(new GameListAdapter(this, gameList));
+        recyclerView.setAdapter(new GameListAdapter(this, gameList, clickListeners));
     }
 }
