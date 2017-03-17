@@ -12,15 +12,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/game_list_item_margin"
+        android:background="@drawable/game_list_item_background"
+        android:columnCount="2"
+        android:rowCount="2"
+        android:useDefaultMargins="true"
     >
+
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_gravity="start"
             android:text="@={dataSource.gameName}"
             android:textSize="24sp"
-        >
+        />
 
-        </TextView>
+        <TextView
+            android:layout_columnWeight="1"
+            android:layout_gravity="end"
+            android:text="@{dataSource.gameDate.toLocaleString()}"
+        />
+
 
     </GridLayout>
 
