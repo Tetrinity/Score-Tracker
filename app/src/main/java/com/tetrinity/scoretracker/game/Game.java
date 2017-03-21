@@ -51,11 +51,12 @@ public class Game extends BaseObservable implements Serializable {
     // data loading
 
     private void initData(){
-        addPlayer("Player 1");
-        addPlayer("Player 2");
+        for (int i = 1; i <= DEFAULT_PLAYER_COUNT; i++){
+            String playerName = "Player " + i;
 
-        addMove("Player 1", new Move(14));
-        addMove("Player 2", new Move(17, "testing"));
+            addPlayer(playerName);
+            addMove(playerName, new Move(0));
+        }
     }
 
     public static Game load(Context context, int gameId){
