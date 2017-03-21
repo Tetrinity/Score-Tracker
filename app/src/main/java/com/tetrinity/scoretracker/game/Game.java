@@ -3,6 +3,7 @@ package com.tetrinity.scoretracker.game;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.ObservableArrayList;
 
 import com.tetrinity.scoretracker.BR;
 
@@ -16,17 +17,23 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Game extends BaseObservable implements Serializable {
+
+    // static fields
+
+    public static final Integer DEFAULT_PLAYER_COUNT = 2;
+
+    // fields
 
     private Integer gameId = -1;
 
     private String gameName = "Untitled";
     private Date gameDate = new Date();
 
-    private LinkedHashMap<String, List<Move>> moves = new LinkedHashMap<>();
+    private ObservableArrayList<String> playerNames = new ObservableArrayList<>();
+    private ObservableArrayList<List<Move>> moves = new ObservableArrayList<>();
 
     private boolean isWordMode = false;
 
@@ -117,12 +124,14 @@ public class Game extends BaseObservable implements Serializable {
     // data manipulation
 
     public void addPlayer(String playerName){
-        if (moves.keySet().contains(playerName)){ return; }
-
-        moves.put(playerName, new ArrayList<Move>());
+        playerNames.add(playerName);
+        moves.add(new ArrayList<Move>());
     }
     public void removePlayer(String playerName){
-        moves.remove(playerName);
+        int index = playerNames.indexOf(playerName);
+
+        playerNames.remove(index);
+        moves.remove(index);
     }
 
     public void addMove(String playerName, Move move){
@@ -131,11 +140,12 @@ public class Game extends BaseObservable implements Serializable {
     }
 
     public List<String> getPlayers(){
-        return new ArrayList<String>(moves.keySet());
+        return playerNames;
     }
 
     public List<Move> getPlayerMoves(String playerName){
-        return moves.get(playerName);
+        int index = playerNames.indexOf(playerName);
+        return moves.get(index);
     }
 
     // bindable getters / setters
@@ -154,6 +164,13 @@ public class Game extends BaseObservable implements Serializable {
 
     @Bindable
     public Integer getGameId(){ return this.gameId; }
+
+    public String getPlayerName(int position){
+        return playerNames.get(position);
+    }
+    public void setPlayerName(int position, String newName){
+        playerNames.set(position, newName);
+    }
 
     @Bindable
     public boolean isWordMode(){
