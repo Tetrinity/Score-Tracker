@@ -27,7 +27,7 @@ public abstract class BaseOneObjectAdapter extends RecyclerView.Adapter<OneObjec
 
     public void onBindViewHolder(OneObjectViewHolder holder, int position){
         Object obj = getObjForPosition(position);
-        holder.bind(obj);
+        holder.bind(obj, position);
 
         holder.setOnClickListener(getClickListenerForPosition(position));
     }

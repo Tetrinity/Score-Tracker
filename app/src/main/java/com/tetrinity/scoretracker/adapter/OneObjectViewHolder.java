@@ -15,8 +15,10 @@ public class OneObjectViewHolder extends RecyclerView.ViewHolder {
         this.binding = binding;
     }
 
-    public void bind(Object obj){
+    public void bind(Object obj, Integer position){
         binding.setVariable(BR.dataSource, obj);
+        binding.setVariable(BR.position, position);
+
         binding.executePendingBindings();
     }
 

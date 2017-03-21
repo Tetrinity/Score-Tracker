@@ -166,11 +166,13 @@ public class Game extends BaseObservable implements Serializable {
     @Bindable
     public Integer getGameId(){ return this.gameId; }
 
-    public String getPlayerName(int position){
-        return playerNames.get(position);
+    @Bindable
+    public ObservableArrayList<String> getPlayerNames(){
+        return this.playerNames;
     }
-    public void setPlayerName(int position, String newName){
-        playerNames.set(position, newName);
+    public void setPlayerNames(ObservableArrayList<String> playerNames){
+        this.playerNames = playerNames;
+        notifyPropertyChanged(BR.playerNames);
     }
 
     @Bindable

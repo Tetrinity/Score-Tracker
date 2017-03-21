@@ -19,8 +19,7 @@ public class PlayerNameAdapter extends SingleLayoutAdapter {
 
     @Override
     protected Object getObjForPosition(int position) {
-        List<String> players = data.getPlayers();
-        return players.get(position);
+        return data;
     }
 
     @Override
