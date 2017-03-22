@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +21,7 @@ public class GameActivity extends AppCompatActivity {
     private Game game = null;
 
     private RecyclerView playerNames;
-    private StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(Game.DEFAULT_PLAYER_COUNT, StaggeredGridLayoutManager.VERTICAL);
+    private GridLayoutManager layoutManager = new GridLayoutManager(this, Game.DEFAULT_PLAYER_COUNT);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
