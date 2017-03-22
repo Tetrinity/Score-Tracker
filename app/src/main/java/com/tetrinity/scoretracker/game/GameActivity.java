@@ -20,8 +20,8 @@ public class GameActivity extends AppCompatActivity {
 
     private Game game = null;
 
-    private RecyclerView playerNames;
-    private GridLayoutManager layoutManager = new GridLayoutManager(this, Game.DEFAULT_PLAYER_COUNT);
+    private RecyclerView playerNameView;
+    private GridLayoutManager playerLayoutManager = new GridLayoutManager(this, Game.DEFAULT_PLAYER_COUNT);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +31,7 @@ public class GameActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        playerNames = binding.playerList;
-        playerNames.setHasFixedSize(true);
-        playerNames.setLayoutManager(layoutManager);
+        initGameLayout();
 
         Intent intent = getIntent();
         Integer gameId = intent.getIntExtra(GameListActivity.GAME_ID, -1);
@@ -41,7 +39,7 @@ public class GameActivity extends AppCompatActivity {
         game = Game.load(this, gameId);
         if (game == null){ game = new Game(this); }
 
-        initGame(game);
+        displayGameData(game);
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
@@ -59,10 +57,16 @@ public class GameActivity extends AppCompatActivity {
         game.save(this);
     }
 
-    private void initGame(Game game){
+    private void initGameLayout(){
+        playerNameView = binding.playerList;
+        playerNameView.setHasFixedSize(true);
+        playerNameView.setLayoutManager(playerLayoutManager);
+    }
+
+    private void displayGameData(Game game){
         binding.setDataSource(game);
 
-        playerNames.setAdapter(new PlayerNameAdapter(this, game));
+        playerNameView.setAdapter(new PlayerNameAdapter(this, game));
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
