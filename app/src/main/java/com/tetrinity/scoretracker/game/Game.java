@@ -55,7 +55,8 @@ public class Game extends BaseObservable implements Serializable {
             String playerName = "Player " + i;
 
             addPlayer(playerName);
-            addMove(playerName, new Move(0));
+            addMove(playerName, new Move(i));
+            addMove(playerName, new Move(i + 100));
         }
     }
 
@@ -144,9 +145,24 @@ public class Game extends BaseObservable implements Serializable {
         return playerNames;
     }
 
+    public Integer getPlayerCount(){
+        return getPlayers().size();
+    }
+
     public List<Move> getPlayerMoves(String playerName){
         int index = playerNames.indexOf(playerName);
         return moves.get(index);
+    }
+
+    public Integer countTotalMoves(){
+        List<String> players = getPlayers();
+
+        Integer moveCount = 0;
+        for (String player : players){
+            moveCount += getPlayerMoves(player).size();
+        }
+
+        return moveCount;
     }
 
     // bindable getters / setters
@@ -173,6 +189,15 @@ public class Game extends BaseObservable implements Serializable {
     public void setPlayerNames(ObservableArrayList<String> playerNames){
         this.playerNames = playerNames;
         notifyPropertyChanged(BR.playerNames);
+    }
+
+    @Bindable
+    public ObservableArrayList<List<Move>> getMoves(){
+        return this.moves;
+    }
+    public void setMoves(ObservableArrayList<List<Move>> moves){
+        this.moves = moves;
+        notifyPropertyChanged(BR.moves);
     }
 
     @Bindable

@@ -23,6 +23,9 @@ public class GameActivity extends AppCompatActivity {
     private RecyclerView playerNameView;
     private GridLayoutManager playerLayoutManager = new GridLayoutManager(this, Game.DEFAULT_PLAYER_COUNT);
 
+    private RecyclerView movesView;
+    private GridLayoutManager moveLayoutManager = new GridLayoutManager(this, Game.DEFAULT_PLAYER_COUNT);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,12 +64,17 @@ public class GameActivity extends AppCompatActivity {
         playerNameView = binding.playerList;
         playerNameView.setHasFixedSize(true);
         playerNameView.setLayoutManager(playerLayoutManager);
+
+        movesView = binding.moveList;
+        movesView.setHasFixedSize(false);
+        movesView.setLayoutManager(moveLayoutManager);
     }
 
     private void displayGameData(Game game){
         binding.setDataSource(game);
 
         playerNameView.setAdapter(new PlayerNameAdapter(this, game));
+        movesView.setAdapter(new MoveListAdapter(this, game));
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
