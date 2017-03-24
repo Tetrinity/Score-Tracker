@@ -11,7 +11,7 @@ public class Move implements Serializable {
     public String word;
 
     public Move(Integer score){
-        this(score, null);
+        this(score, "");
     }
 
     public Move(Integer score, String word){

@@ -3,7 +3,6 @@ package com.tetrinity.scoretracker.game;
 import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.ObservableArrayList;
 
 import com.tetrinity.scoretracker.BR;
 
@@ -32,8 +31,8 @@ public class Game extends BaseObservable implements Serializable {
     private String gameName = "Untitled";
     private Date gameDate = new Date();
 
-    private ObservableArrayList<String> playerNames = new ObservableArrayList<>();
-    private ObservableArrayList<List<Move>> moves = new ObservableArrayList<>();
+    private ArrayList<String> playerNames = new ArrayList<>();
+    private ArrayList<List<Move>> moves = new ArrayList<>();
 
     private boolean isWordMode = false;
 
@@ -51,13 +50,8 @@ public class Game extends BaseObservable implements Serializable {
     // data loading
 
     private void initData(){
-        for (int i = 1; i <= DEFAULT_PLAYER_COUNT; i++){
-            String playerName = "Player " + i;
-
-            addPlayer(playerName);
-            addMove(playerName, new Move(i));
-            addMove(playerName, new Move(i + 100));
-        }
+        setPlayerCount(DEFAULT_PLAYER_COUNT);
+        addMoveRow();
     }
 
     public static Game load(Context context, int gameId){
@@ -123,47 +117,66 @@ public class Game extends BaseObservable implements Serializable {
         return Integer.parseInt(filename.substring(4, filename.indexOf(".")));
     }
 
+
     // data manipulation
 
-    public void addPlayer(String playerName){
-        playerNames.add(playerName);
-        moves.add(new ArrayList<Move>());
-    }
-    public void removePlayer(String playerName){
-        int index = playerNames.indexOf(playerName);
+    public void addMoveRow(){
+        List<List<Move>> moves = getMoves();
 
-        playerNames.remove(index);
-        moves.remove(index);
-    }
-
-    public void addMove(String playerName, Move move){
-        List<Move> playerMoves = getPlayerMoves(playerName);
-        playerMoves.add(move);
-    }
-
-    public List<String> getPlayers(){
-        return playerNames;
-    }
-
-    public Integer getPlayerCount(){
-        return getPlayers().size();
-    }
-
-    public List<Move> getPlayerMoves(String playerName){
-        int index = playerNames.indexOf(playerName);
-        return moves.get(index);
-    }
-
-    public Integer countTotalMoves(){
-        List<String> players = getPlayers();
-
-        Integer moveCount = 0;
-        for (String player : players){
-            moveCount += getPlayerMoves(player).size();
+        for (List<Move> moveList : moves){
+            moveList.add(new Move(0));
         }
 
-        return moveCount;
+        notifyPropertyChanged(BR.moves);
     }
+
+    public void setPlayerCount(Integer newPlayerCount){
+        Integer currentPlayerCount = getPlayerCount();
+        Integer changeCount = Math.abs(newPlayerCount - currentPlayerCount);
+
+        if (newPlayerCount > currentPlayerCount){
+            for (int i = 0; i < changeCount; i++){
+                addPlayer();
+            }
+        } else if (newPlayerCount < currentPlayerCount){
+            for (int i = 0; i < changeCount; i++){
+                // TODO: implement removePlayer
+                // removePlayer();
+            }
+        }
+    }
+
+    private void addPlayer(){
+        Integer newPlayerNumber = getPlayerCount() + 1;
+        playerNames.add("Player " + newPlayerNumber);
+
+        Integer numMoves = getMoveRowCount();
+
+        List<Move> moveList = new ArrayList<>();
+        for (int i = 0; i < numMoves; i++){
+            moveList.add(new Move(0));
+        }
+        moves.add(moveList);
+
+        notifyPropertyChanged(BR.playerNames);
+        notifyPropertyChanged(BR.moves);
+    }
+
+    public int getPlayerCount(){
+        return getPlayerNames().size();
+    }
+
+    public int getMoveRowCount(){
+        List moves = getMoves();
+
+        if (moves.size() == 0){ return 0; }
+        else { return getMoves().get(0).size(); }
+    }
+
+    public int getTotalMoveCount(){
+        return getPlayerCount() * getMoveRowCount();
+    }
+
 
     // bindable getters / setters
 
@@ -183,19 +196,19 @@ public class Game extends BaseObservable implements Serializable {
     public Integer getGameId(){ return this.gameId; }
 
     @Bindable
-    public ObservableArrayList<String> getPlayerNames(){
+    public ArrayList<String> getPlayerNames(){
         return this.playerNames;
     }
-    public void setPlayerNames(ObservableArrayList<String> playerNames){
+    public void setPlayerNames(ArrayList<String> playerNames){
         this.playerNames = playerNames;
         notifyPropertyChanged(BR.playerNames);
     }
 
     @Bindable
-    public ObservableArrayList<List<Move>> getMoves(){
+    public ArrayList<List<Move>> getMoves(){
         return this.moves;
     }
-    public void setMoves(ObservableArrayList<List<Move>> moves){
+    public void setMoves(ArrayList<List<Move>> moves){
         this.moves = moves;
         notifyPropertyChanged(BR.moves);
     }

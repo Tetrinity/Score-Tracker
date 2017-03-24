@@ -29,6 +29,6 @@ public class PlayerNameAdapter extends SingleLayoutAdapter {
 
     @Override
     public int getItemCount() {
-        return data.getPlayers().size();
+        return data.getPlayerCount();
     }
 }

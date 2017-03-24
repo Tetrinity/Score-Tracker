@@ -3,58 +3,53 @@ package com.tetrinity.scoretracker.game;
 import org.junit.Test;
 import org.junit.Assert;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GameUnitTest {
 
     @Test
-    public void test_addPlayer(){
+    public void test_initGame(){
         Game game = new Game();
 
-        game.addPlayer("Test Player");
-        game.addPlayer("Other Player");
-
-        List gamePlayers = game.getPlayers();
-
-        Assert.assertEquals("Expected first player to be \"Player 1\"", "Player 1", gamePlayers.get(0));
-        Assert.assertEquals("Expected second player to be \"Player 2\"", "Player 2", gamePlayers.get(1));
-        Assert.assertEquals("Expected third player to be \"Test Player\"", "Test Player", gamePlayers.get(2));
-        Assert.assertEquals("Expected fourth player to be \"Other Player\"", "Other Player", gamePlayers.get(3));
+        Assert.assertEquals("Expected to have two players by default", 2, game.getPlayerCount());
+        Assert.assertEquals("Expected each player to have one move", 1, game.getMoveRowCount());
     }
 
     @Test
-    public void test_removePlayer(){
+    public void test_addMoveRow(){
         Game game = new Game();
 
-        game.addPlayer("Test Player");
-        game.addPlayer("Other Player");
+        ArrayList<String> players = new ArrayList<String>();
+        players.add("Player 1"); players.add("Player 2"); players.add("Player 3");
+        game.setPlayerNames(players);
 
-        game.removePlayer("Test Player");
-        game.removePlayer("Not Included");
+        ArrayList<List<Move>> moves = new ArrayList<>();
+        moves.add(createMoveList(new Move(1), new Move(2)));
+        moves.add(createMoveList(new Move(3), new Move(4)));
+        moves.add(createMoveList(new Move(5), new Move(6)));
+        game.setMoves(moves);
 
-        List gamePlayers = game.getPlayers();
+        Assert.assertEquals("Expected setup to have 2 move rows", 2, game.getMoveRowCount());
+        Assert.assertEquals("Expected setup to have a total of 6 moves", 6, game.getTotalMoveCount());
 
-        Assert.assertEquals("Expected three players remaining", 3, gamePlayers.size());
-        Assert.assertEquals("Expected first player to be \"Player 1\"", "Player 1", gamePlayers.get(0));
-        Assert.assertEquals("Expected second player to be \"Player 2\"", "Player 2", gamePlayers.get(1));
-        Assert.assertEquals("Expected third player to be \"Other Player\"", "Other Player", gamePlayers.get(2));
+        game.addMoveRow();
+
+        Assert.assertEquals("Expected to have 3 move rows after adding a move row", 3, game.getMoveRowCount());
+        Assert.assertEquals("Expected to have a total of 9 moves after adding a move row", 9, game.getTotalMoveCount());
+
+        List<List<Move>> actualMoves = game.getMoves();
+        for (List<Move> playerMoves : actualMoves){
+            Move lastMove = playerMoves.get(playerMoves.size()-1);
+            Assert.assertEquals("Expected newly created move to default to 0", 0, lastMove.score);
+            Assert.assertEquals("Expected newly created move to have no word", "", lastMove.word);
+        }
     }
 
-    @Test
-    public void test_addMove(){
-        Game game = new Game();
-        String playerName = "Test Player";
-
-        game.addPlayer(playerName);
-        game.addMove(playerName, new Move(18));
-        game.addMove(playerName, new Move(14, "Java"));
-
-        List<Move> moves = game.getPlayerMoves(playerName);
-
-        Assert.assertEquals("Expected to have two moves", 2, moves.size());
-        Assert.assertEquals("Expected first move to have a score of 18", 18, moves.get(0).score);
-        Assert.assertEquals("Expected first move to have no associated word", null, moves.get(0).word);
-        Assert.assertEquals("Expected second move to have a score of 14", 14, moves.get(1).score);
-        Assert.assertEquals("Expected second move to have the word \"Java\"", "Java", moves.get(1).word);
+    private List<Move> createMoveList(Move... rawMoveArray){
+        ArrayList<Move> moves = new ArrayList<>();
+        Collections.addAll(moves, rawMoveArray);
+        return moves;
     }
 }

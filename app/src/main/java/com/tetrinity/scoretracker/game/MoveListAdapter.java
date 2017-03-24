@@ -27,6 +27,6 @@ public class MoveListAdapter extends SingleLayoutAdapter {
 
     @Override
     public int getItemCount() {
-        return data.countTotalMoves();
+        return data.getTotalMoveCount();
     }
 }
