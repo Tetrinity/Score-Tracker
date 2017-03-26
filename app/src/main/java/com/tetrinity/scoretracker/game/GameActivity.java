@@ -1,6 +1,7 @@
 package com.tetrinity.scoretracker.game;
 
 import android.content.Intent;
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.tetrinity.scoretracker.R;
 import com.tetrinity.scoretracker.databinding.ActivityGameBinding;
@@ -27,6 +29,9 @@ public class GameActivity extends AppCompatActivity {
 
     private RecyclerView movesView;
     private GridLayoutManager moveLayoutManager = new GridLayoutManager(this, Game.DEFAULT_PLAYER_COUNT);
+
+    private RecyclerView scoreTotalView;
+    private GridLayoutManager scoreTotalLayoutManager = new GridLayoutManager(this, Game.DEFAULT_PLAYER_COUNT);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +75,10 @@ public class GameActivity extends AppCompatActivity {
         movesView = binding.moveList;
         movesView.setHasFixedSize(false);
         movesView.setLayoutManager(moveLayoutManager);
+
+        scoreTotalView = binding.scoreTotals;
+        scoreTotalView.setHasFixedSize(false);
+        scoreTotalView.setLayoutManager(scoreTotalLayoutManager);
     }
 
     private void displayGameData(Game game){
@@ -77,6 +86,7 @@ public class GameActivity extends AppCompatActivity {
 
         playerNameView.setAdapter(new PlayerNameAdapter(this, game));
         movesView.setAdapter(new MoveListAdapter(this, game));
+        scoreTotalView.setAdapter(new PlayerScoreAdapter(this, game));
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -98,5 +108,13 @@ public class GameActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @BindingAdapter("android:layout_marginBottom")
+    public static void setMoveListBottomMargin(View view, float bottomMargin){
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams)view.getLayoutParams();
+
+        layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin, layoutParams.rightMargin, (int)bottomMargin);
+        view.setLayoutParams(layoutParams);
     }
 }

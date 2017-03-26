@@ -214,6 +214,28 @@ public class Game extends BaseObservable implements Serializable {
     }
 
     @Bindable
+    public ArrayList<Integer> getMoveScoreTotals(){
+        // TODO: two-way binding for this doesn't work, only updates when first loading activity
+        ArrayList<Integer> scoreTotals = new ArrayList<>();
+
+        List<List<Move>> moves = getMoves();
+        for (List<Move> playerMoves : moves){
+            Integer score = 0;
+            for (Move move : playerMoves){
+                score += move.score;
+            }
+
+            scoreTotals.add(score);
+        }
+
+        return scoreTotals;
+    }
+    public void setMoveScoreTotals(ArrayList<Integer> scoreTotals){
+        notifyPropertyChanged(BR.moveScoreTotals);
+    }
+
+
+    @Bindable
     public boolean isWordMode(){
         return isWordMode;
     }

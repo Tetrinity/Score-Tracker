@@ -7,4 +7,8 @@
     <dimen name="text_margin">16dp</dimen>
 
     <dimen name="game_list_item_margin">4dp</dimen>
+
+    <dimen name="player_score_text_size">24sp</dimen>
+    <dimen name="player_score_padding">10sp</dimen>
+    <dimen name="player_score_border">10sp</dimen>
 </resources>
