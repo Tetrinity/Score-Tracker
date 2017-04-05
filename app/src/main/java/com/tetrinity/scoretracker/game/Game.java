@@ -216,7 +216,6 @@ public class Game extends BaseObservable implements Serializable {
 
     @Bindable
     public ArrayList<Integer> getMoveScoreTotals(){
-        // TODO: two-way binding for this doesn't work, only updates when first loading activity
         return moveScoreTotals;
     }
     public void setMoveScoreTotals(ArrayList<Integer> scoreTotals){
