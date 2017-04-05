@@ -5,6 +5,7 @@ import android.view.View;
 
 import com.tetrinity.scoretracker.R;
 import com.tetrinity.scoretracker.adapter.SingleLayoutAdapter;
+import com.tetrinity.scoretracker.adapter.SubViewListenerContainer;
 import com.tetrinity.scoretracker.game.Game;
 
 import java.util.ArrayList;
@@ -28,6 +29,11 @@ public class GameListAdapter extends SingleLayoutAdapter {
     @Override
     protected View.OnClickListener getClickListenerForPosition(int position){
         return clickListeners.get(position);
+    }
+
+    @Override
+    protected ArrayList<SubViewListenerContainer> getSubViewListeners() {
+        return null;
     }
 
     @Override

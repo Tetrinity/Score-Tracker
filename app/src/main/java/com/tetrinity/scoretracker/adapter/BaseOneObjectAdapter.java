@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+
 public abstract class BaseOneObjectAdapter extends RecyclerView.Adapter<OneObjectViewHolder> {
 
     protected Context context;
@@ -30,6 +32,13 @@ public abstract class BaseOneObjectAdapter extends RecyclerView.Adapter<OneObjec
         holder.bind(obj, position);
 
         holder.setOnClickListener(getClickListenerForPosition(position));
+
+        ArrayList<SubViewListenerContainer> subViewListeners = getSubViewListeners();
+        if (subViewListeners != null){
+            for (SubViewListenerContainer svcl : subViewListeners){
+                holder.setSubViewListeners(svcl);
+            }
+        }
     }
 
     @Override
@@ -39,6 +48,7 @@ public abstract class BaseOneObjectAdapter extends RecyclerView.Adapter<OneObjec
 
     protected abstract Object getObjForPosition(int position);
     protected abstract View.OnClickListener getClickListenerForPosition(int position);
+    protected abstract ArrayList<SubViewListenerContainer> getSubViewListeners();
 
     protected abstract int getLayoutIdForPosition(int position);
 }

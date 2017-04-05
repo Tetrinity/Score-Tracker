@@ -25,4 +25,13 @@ public class OneObjectViewHolder extends RecyclerView.ViewHolder {
     public void setOnClickListener(View.OnClickListener onClickListener){
         binding.getRoot().setOnClickListener(onClickListener);
     }
+
+    public void setSubViewListeners(SubViewListenerContainer svcl){
+        View subView = binding.getRoot().findViewById(svcl.getViewId());
+
+        if (subView != null){
+            subView.setOnFocusChangeListener(svcl.getOnFocusChangeListener());
+            subView.setOnClickListener(svcl.getOnClickListener());
+        }
+    }
 }
