@@ -4,6 +4,12 @@
     tools:context="com.tetrinity.scoretracker.game.GameActivity"
 >
     <item
+        android:id="@+id/action_game_name"
+        android:icon="@drawable/abc_48dp"
+        android:title="@string/game_name"
+        app:showAsAction="ifRoom"
+    />
+    <item
         android:id="@+id/action_timer"
         android:icon="@drawable/ic_hourglass_black"
         android:title="@string/timer"

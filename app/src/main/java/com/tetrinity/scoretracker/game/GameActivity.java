@@ -16,9 +16,10 @@ import android.view.ViewGroup;
 
 import com.tetrinity.scoretracker.R;
 import com.tetrinity.scoretracker.databinding.ActivityGameBinding;
+import com.tetrinity.scoretracker.dialog.GameNameDialogFragment;
 import com.tetrinity.scoretracker.gamelist.GameListActivity;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements GameNameDialogFragment.OnGameNameSetListener {
 
     ActivityGameBinding binding;
 
@@ -102,8 +103,11 @@ public class GameActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_game_name){
+            GameNameDialogFragment gndf = GameNameDialogFragment.newInstance(game);
+            gndf.show(getSupportFragmentManager(), "game_name");
+
+        } else if (id == R.id.action_settings) {
             return true;
         }
 
@@ -116,5 +120,10 @@ public class GameActivity extends AppCompatActivity {
 
         layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin, layoutParams.rightMargin, (int)bottomMargin);
         view.setLayoutParams(layoutParams);
+    }
+
+    @Override
+    public void onGameNameSet(String newGameName){
+        game.setGameName(newGameName);
     }
 }
