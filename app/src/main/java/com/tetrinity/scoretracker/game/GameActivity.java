@@ -97,15 +97,30 @@ public class GameActivity extends AppCompatActivity implements GameNameDialogFra
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu){
+        MenuItem turnWordModeOn = menu.findItem(R.id.action_turn_word_mode_on);
+        MenuItem turnWordModeOff = menu.findItem(R.id.action_turn_word_mode_off);
+
+        turnWordModeOn.setVisible(!game.isWordMode());
+        turnWordModeOff.setVisible(game.isWordMode());
+
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_game_name){
+        if (id == R.id.action_game_name) {
             GameNameDialogFragment gndf = GameNameDialogFragment.newInstance(game);
             gndf.show(getSupportFragmentManager(), "game_name");
+
+        } else if (id == R.id.action_turn_word_mode_on || id == R.id.action_turn_word_mode_off){
+            game.setWordMode(!game.isWordMode());
+            invalidateOptionsMenu();
 
         } else if (id == R.id.action_settings) {
             return true;

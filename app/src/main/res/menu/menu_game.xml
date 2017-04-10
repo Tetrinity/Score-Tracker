@@ -10,6 +10,18 @@
         app:showAsAction="ifRoom"
     />
     <item
+        android:id="@+id/action_turn_word_mode_on"
+        android:icon="@drawable/w_48dp"
+        android:title="@string/toggle_word_mode"
+        app:showAsAction="ifRoom"
+    />
+    <item
+        android:id="@+id/action_turn_word_mode_off"
+        android:icon="@drawable/w_active_48dp"
+        android:title="@string/toggle_word_mode"
+        app:showAsAction="ifRoom"
+    />
+    <item
         android:id="@+id/action_timer"
         android:icon="@drawable/ic_hourglass_black"
         android:title="@string/timer"

@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
 >
     <data>
+        <import type="android.view.View"/>
+
         <variable name="dataSource" type="com.tetrinity.scoretracker.game.Game"/>
         <variable name="position" type="Integer"/>
     </data>
@@ -20,6 +22,17 @@
             android:layout_height="wrap_content"
             android:inputType="numberSigned"
             android:text="@={dataSource.moves[position % dataSource.getPlayerCount()][position / dataSource.getPlayerCount()].score}"
+        />
+
+        <EditText
+            android:id="@+id/move_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:inputType="text"
+            android:hint="@string/word"
+            android:text="@={dataSource.moves[position % dataSource.getPlayerCount()][position / dataSource.getPlayerCount()].word}"
+            android:visibility="@{dataSource.wordMode ? View.VISIBLE : View.GONE}"
         />
 
     </LinearLayout>
