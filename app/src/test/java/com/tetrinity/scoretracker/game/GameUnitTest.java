@@ -71,7 +71,54 @@ public class GameUnitTest {
         Assert.assertEquals("Expected to have 2 move rows after increasing player count", 2, game.getMoveRowCount());
         Assert.assertEquals("Expected to have 3 players after increasing player count", 3, game.getPlayerCount());
         Assert.assertEquals("Expected to have a total of 6 moves after increasing player count", 6, game.getTotalMoveCount());
+    }
 
+    @Test
+    public void test_setPlayerCount_Decrease(){
+        Game game = new Game();
+
+        ArrayList<String> players = new ArrayList<String>();
+        players.add("Player 1"); players.add("Player 2");
+        game.setPlayerNames(players);
+
+        ArrayList<List<Move>> moves = new ArrayList<>();
+        moves.add(createMoveList(new Move(1), new Move(2)));
+        moves.add(createMoveList(new Move(3), new Move(4)));
+        game.setMoves(moves);
+
+        Assert.assertEquals("Expected setup to have 2 move rows", 2, game.getMoveRowCount());
+        Assert.assertEquals("Expected setup to have 2 players", 2, game.getPlayerCount());
+        Assert.assertEquals("Expected setup to have a total of 4 moves", 4, game.getTotalMoveCount());
+
+        game.setPlayerCount(1);
+
+        Assert.assertEquals("Expected to have 2 move rows after decreasing player count", 2, game.getMoveRowCount());
+        Assert.assertEquals("Expected to have 1 player after decreasing player count", 1, game.getPlayerCount());
+        Assert.assertEquals("Expected to have a total of 2 moves after decreasing player count", 2, game.getTotalMoveCount());
+    }
+
+    @Test
+    public void test_setPlayerCount_Negative(){
+        Game game = new Game();
+
+        ArrayList<String> players = new ArrayList<String>();
+        players.add("Player 1"); players.add("Player 2");
+        game.setPlayerNames(players);
+
+        ArrayList<List<Move>> moves = new ArrayList<>();
+        moves.add(createMoveList(new Move(1), new Move(2)));
+        moves.add(createMoveList(new Move(3), new Move(4)));
+        game.setMoves(moves);
+
+        Assert.assertEquals("Expected setup to have 2 move rows", 2, game.getMoveRowCount());
+        Assert.assertEquals("Expected setup to have 2 players", 2, game.getPlayerCount());
+        Assert.assertEquals("Expected setup to have a total of 4 moves", 4, game.getTotalMoveCount());
+
+        game.setPlayerCount(-4);
+
+        Assert.assertEquals("Expected to have 2 move rows after attempting to set a player count less than 1", 2, game.getMoveRowCount());
+        Assert.assertEquals("Expected to have 1 player after attempting to set a player count less than 1", 1, game.getPlayerCount());
+        Assert.assertEquals("Expected to have a total of 2 moves after attempting to set a player count less than 1", 2, game.getTotalMoveCount());
     }
 
     private List<Move> createMoveList(Move... rawMoveArray){

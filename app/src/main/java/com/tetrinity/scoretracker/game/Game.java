@@ -141,8 +141,7 @@ public class Game extends BaseObservable implements Serializable {
             }
         } else if (newPlayerCount < currentPlayerCount){
             for (int i = 0; i < changeCount; i++){
-                // TODO: implement removePlayer
-                // removePlayer();
+                 removePlayer();
             }
         }
     }
@@ -158,6 +157,18 @@ public class Game extends BaseObservable implements Serializable {
             moveList.add(new Move(0));
         }
         moves.add(moveList);
+
+        notifyPropertyChanged(BR.playerNames);
+        notifyPropertyChanged(BR.moves);
+    }
+
+    private void removePlayer(){
+        if (playerNames.size() <= 1){ return; }
+
+        int lastIndex = playerNames.size() - 1;
+
+        playerNames.remove(lastIndex);
+        moves.remove(lastIndex);
 
         notifyPropertyChanged(BR.playerNames);
         notifyPropertyChanged(BR.moves);

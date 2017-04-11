@@ -2,6 +2,7 @@
 <resources>
     <string name="game_name">Game Name</string>
     <string name="toggle_word_mode">Toggle Word Mode</string>
+    <string name="player_count">Set Player Count</string>
     <string name="timer">Move Timer</string>
     <string name="settings">Settings</string>
 

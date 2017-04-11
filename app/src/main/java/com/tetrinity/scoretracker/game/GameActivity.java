@@ -17,9 +17,10 @@ import android.view.ViewGroup;
 import com.tetrinity.scoretracker.R;
 import com.tetrinity.scoretracker.databinding.ActivityGameBinding;
 import com.tetrinity.scoretracker.dialog.GameNameDialogFragment;
+import com.tetrinity.scoretracker.dialog.PlayerCountDialogFragment;
 import com.tetrinity.scoretracker.gamelist.GameListActivity;
 
-public class GameActivity extends AppCompatActivity implements GameNameDialogFragment.OnGameNameSetListener {
+public class GameActivity extends AppCompatActivity implements GameNameDialogFragment.OnGameNameSetListener, PlayerCountDialogFragment.OnPlayerCountSetListener {
 
     ActivityGameBinding binding;
 
@@ -88,6 +89,8 @@ public class GameActivity extends AppCompatActivity implements GameNameDialogFra
         playerNameView.setAdapter(new PlayerNameAdapter(this, game));
         movesView.setAdapter(new MoveListAdapter(this, game));
         scoreTotalView.setAdapter(new PlayerScoreAdapter(this, game));
+
+        setLayoutSpanCount(game.getPlayerCount());
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -118,9 +121,13 @@ public class GameActivity extends AppCompatActivity implements GameNameDialogFra
             GameNameDialogFragment gndf = GameNameDialogFragment.newInstance(game);
             gndf.show(getSupportFragmentManager(), "game_name");
 
-        } else if (id == R.id.action_turn_word_mode_on || id == R.id.action_turn_word_mode_off){
+        } else if (id == R.id.action_turn_word_mode_on || id == R.id.action_turn_word_mode_off) {
             game.setWordMode(!game.isWordMode());
             invalidateOptionsMenu();
+
+        } else if (id == R.id.action_player_count){
+            PlayerCountDialogFragment gndf = PlayerCountDialogFragment.newInstance(game);
+            gndf.show(getSupportFragmentManager(), "player_count");
 
         } else if (id == R.id.action_settings) {
             return true;
@@ -140,5 +147,17 @@ public class GameActivity extends AppCompatActivity implements GameNameDialogFra
     @Override
     public void onGameNameSet(String newGameName){
         game.setGameName(newGameName);
+    }
+
+    @Override
+    public void onPlayerCountSet(Integer playerCount) {
+        game.setPlayerCount(playerCount);
+        setLayoutSpanCount(playerCount);
+    }
+
+    private void setLayoutSpanCount(Integer spanCount) {
+        playerLayoutManager.setSpanCount(spanCount);
+        moveLayoutManager.setSpanCount(spanCount);
+        scoreTotalLayoutManager.setSpanCount(spanCount);
     }
 }

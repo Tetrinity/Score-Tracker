@@ -22,6 +22,12 @@
         app:showAsAction="ifRoom"
     />
     <item
+        android:id="@+id/action_player_count"
+        android:icon="@drawable/player_count_48dp"
+        android:title="@string/player_count"
+        app:showAsAction="ifRoom"
+    />
+    <item
         android:id="@+id/action_timer"
         android:icon="@drawable/ic_hourglass_black"
         android:title="@string/timer"
