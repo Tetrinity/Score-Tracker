@@ -28,7 +28,7 @@ public class Move implements Serializable {
     public static int getText(TextView view){
         String viewText = view.getText().toString();
 
-        if (viewText.equals("")){
+        if (viewText.equals("") || viewText.equals("-")){
             return 0;
         } else {
             return Integer.parseInt(viewText);
